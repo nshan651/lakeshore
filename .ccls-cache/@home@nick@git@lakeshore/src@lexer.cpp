@@ -1,13 +1,11 @@
 #include "lexer.h"
 #include "errors.h"
 
-Lexer::Lexer()
-{
-}
+bool Lexer::hadError = false;
 
-Lexer::~Lexer()
-{
-}
+Lexer::Lexer() {}
+
+Lexer::~Lexer() {}
 
 void Lexer::runFile(const std::string filepath)
 {
@@ -26,6 +24,9 @@ void Lexer::runFile(const std::string filepath)
     std::string content = fileContent.str();
 
     /* run(content); */
+
+    if (Lexer::hadError) std::exit(65);
+    
 }
 
 void Lexer::runPrompt()
@@ -38,6 +39,7 @@ void Lexer::runPrompt()
         if (line.empty()) break;
 
         /* run(line); */
+        Lexer::hadError = false;
     } 
 }
 
