@@ -1,6 +1,7 @@
 CXX := clang++
 
 SRC_DIR := src
+BIN := lakeshore
 BUILD_DIR := build
 INCLUDE_DIR := include
 
@@ -19,18 +20,15 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) -c -o $@ $< $(CXXFLAGS) $(CPPFLAGS)
 
 # Final build step
-$(BUILD_DIR)/lakeshore: $(OBJS)
+$(BUILD_DIR)/$(BIN): $(OBJS)
 	$(CXX) -o $@ $^ $(CXXFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
-all: $(BUILD_DIR)/lakeshore
+all: $(BUILD_DIR)/$(BIN)
 
 # Run executable
 run:
-	./$(BUILD_DIR)/lakeshore
+	./$(BUILD_DIR)/$(BIN)
 
 # Remove build artifacts
 clean:
 	rm -rf $(BUILD_DIR)
-
-
-
