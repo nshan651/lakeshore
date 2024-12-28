@@ -2,7 +2,7 @@
 #include "CLI/CLI.hpp"
 
 #include "errors.h"
-#include "lexer.h"
+#include "lakeshore.h"
 
 int main (int argc, char *argv[])
 {
@@ -14,15 +14,15 @@ int main (int argc, char *argv[])
 
     CLI11_PARSE(app, argc, argv);
 
-    std::unique_ptr<Lexer> pLexer = std::make_unique<Lexer>();
+    std::unique_ptr<Lakeshore> pLakeshore = std::make_unique<Lakeshore>();
 
     if (filepath.empty())
     {
-        Lexer::runPrompt();
+        Lakeshore::runPrompt();
     }
     else
     {
-        Lexer::runFile(filepath);
+        Lakeshore::runFile(filepath);
     }
 
     return 0;

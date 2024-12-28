@@ -4,68 +4,82 @@
 
 #pragma once
 
-enum TokenType
-{
-    /* Basic type literals */
-    IDENT,  // main
-    INT,    // 123
-    FLOAT,  // 1.23
-    CHAR,   // 'a'
-    STRING, // "abc"
+enum TokenType {
+  /* Basic type literals */
+  IDENT,  // main
+  INT,    // 123
+  FLOAT,  // 1.23
+  CHAR,   // 'a'
+  STRING, // "abc"
+  NUMBER,
 
-    /* Single-character tokens. */
-    LPAREN, // (
-	LBRACK, // [
-	LBRACE, // {
-    RPAREN, // )
-	RBRACK, // ]
-	RBRACE, // }
-	COMMA,  // ,
-	PERIOD, // .
-	SEMICOLON, // ;
-	COLON,  // : 
+  /* Single-character tokens. */
+  LPAREN,    // (
+  LBRACK,    // [
+  LBRACE,    // {
+  RPAREN,    // )
+  RBRACK,    // ]
+  RBRACE,    // }
+  COMMA,     // ,
+  PERIOD,    // .
+  SEMICOLON, // ;
+  COLON,     // :
 
-    /* Arithmetic operators */
-    ADD,    // +
-	SUB,    // -
-	MUL,    // *
-	DIV,    // /
-	MOD,    // %
-    POS,    // +5
-    NEG,    // -5 
+  /* Arithmetic operators */
+  ADD, // +
+  SUB, // -
+  MUL, // *
+  DIV, // /
+  MOD, // %
+  POS, // +5
+  NEG, // -5
 
-    /* Logical comparisons */
-    EQL,    // ==
-	LT,   // <
-	GT,    // >
-	ASSIGN, // =
-	NOT,    // !
-	NEQ,    // !=
-	LEQ,    // <=
-	GEQ,    // >=
+  /* Logical comparisons */
+  EQL,    // ==
+  LT,     // <
+  GT,     // >
+  ASSIGN, // =
+  NOT,    // !
+  NEQ,    // !=
+  LEQ,    // <=
+  GEQ,    // >=
 
-    /* Bitwise operators */
-	AND,    // &
-	OR,     // |
-	XOR,    // ^
+  /* Bitwise operators */
+  AND, // &
+  OR,  // |
+  XOR, // ^
 
-    /* String concatenation */
-    CONCAT,
+  /* String concatenation */
+  CONCAT,
 
-    /* Keywords */
-    BREAK,
-    CASE,
-    CONTINUE,
-    DEF,
-    DEFAULT,
-    ELSE,
-    FOR,
-    IF,
-    IMPORT,
-    LET,
-    MAP,
-    PACKAGE,
-    THEN,
+  /* Keywords */
+  BREAK,
+  CASE,
+  CLASS,
+  CONTINUE,
+  DEF,
+  DEFAULT,
+  ELSE,
+  FALSE,
+  FOR,
+  FUN,
+  IF,
+  IMPORT,
+  LET,
+  MAP,
+  PACKAGE,
+  THEN,
+  NIL,
+  PRINT,
+  RETURN,
+  SUPER,
+  THIS,
+  TRUE,
+  VAR,
+  WHILE,
+
+  /* END OF FUNCTION (using END to avoid namespace collision) */
+  END,
 };
 
 const std::map<TokenType, std::string> TOKENS
@@ -116,24 +130,24 @@ const std::map<TokenType, std::string> TOKENS
     {LET, "let"},
     {MAP, "map"},
     {PACKAGE, "package"},
-    {THEN, "then"}
+    {THEN, "then"},
+    {END, "eof"}
 };
 
 class Token 
 {
-    public:
+  public:
+    const TokenType type;
+    const std::string lexeme;
+    const void* literal;
+    const int line;
+  
+  Token(const TokenType type, 
+	const std::string lexeme, 
+	const void* literal, 
+	const int line);
+  
+  ~Token();
 
-    static const TokenType type;
-    static const std::string lexeme;
-    static const void* literal;
-    static const int line;
-
-    Token(const TokenType type, 
-          const std::string lexeme, 
-          const void* literal, 
-          const int line);
-
-    ~Token();
-
-    static std::string toString();
+  std::string toString();
 };

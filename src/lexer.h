@@ -3,27 +3,43 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <vector>
+#include <unordered_map>
+
+#include "token.h"
 
 #pragma once
 
 class Lexer
 {
-    public:
-
-    static bool hadError;
-
-    Lexer();
+  public:
+    Lexer(const std::string source);
     ~Lexer();
 
-    static void runFile(const std::string filepath);
+    std::vector<Token> scanTokens();
+    void scanToken();
+  
+  private:
+    std::string source;
+    std::vector<Token> tokens;
 
-    static void runPrompt(void);
+    static const std::unordered_map<std::string, TokenType> keywords;
 
-    static void run(const std::string source);
-}; 
+    int start = 0;
+    int current = 0;
+    int line = 1;
 
-void runFile(const std::string filepath);
-void runPrompt(void);
-void run(const std::string source);
-
-
+    bool isAtEnd();
+    bool isDigit(char c);
+    bool isAlpha(char c);
+    bool isAlphaNumeric(char c);
+    bool match(char expected);
+    char advance();
+    char peek();
+    char peekNext();
+    void addToken(TokenType type);
+    void addToken(TokenType type, void *literal);
+    void string();
+    void number();
+    void identifier();
+};
