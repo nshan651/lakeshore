@@ -105,7 +105,7 @@ void Lexer::scanToken()
 /* Check if we've reached the end of the source. */
 bool Lexer::isAtEnd()
 {
-  return Lexer::current >= Lexer::source.length();
+  return Lexer::current >= Lexer::source.size();
 }
 
 /* Check if lexeme is a digit. */
@@ -165,7 +165,8 @@ void Lexer::addToken(TokenType type)
 
 void Lexer::addToken(TokenType type, void* literal)
 {
-  std::string text = Lexer::source.substr(Lexer::start, Lexer::current);
+  std::string text =
+    Lexer::source.substr(Lexer::start, Lexer::current - Lexer::start);
   Lexer::tokens.emplace_back(type, text, literal, Lexer::line);
 }
 
@@ -203,7 +204,8 @@ void Lexer::number()
     while (isDigit(peek())) advance();
   }
 
-  double num = std::stod(Lexer::source.substr(Lexer::start, Lexer::current));
+  double num = std::stod(Lexer::source.substr(Lexer::start,
+					      Lexer::current - Lexer::start));
 
   addToken(NUMBER, static_cast<void*>(&num));
 }
@@ -212,7 +214,8 @@ void Lexer::identifier()
 {
   while (isAlphaNumeric(peek())) advance();
 
-  std::string text = Lexer::source.substr(Lexer::start, Lexer::current);
+  std::string text =
+    Lexer::source.substr(Lexer::start, Lexer::current - Lexer::start);
 
   auto it = keywords.find(text);
 

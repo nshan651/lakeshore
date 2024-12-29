@@ -5,7 +5,7 @@
 #pragma once
 
 enum TokenType {
-  /* Basic type literals */
+  /* Basic type literals. */
   IDENT,  // main
   INT,    // 123
   FLOAT,  // 1.23
@@ -25,7 +25,7 @@ enum TokenType {
   SEMICOLON, // ;
   COLON,     // :
 
-  /* Arithmetic operators */
+  /* Arithmetic operators. */
   ADD, // +
   SUB, // -
   MUL, // *
@@ -84,54 +84,68 @@ enum TokenType {
 
 const std::map<TokenType, std::string> TOKENS
 {
-    {IDENT, "IDENT"},
-    {INT, "INT"},
-    {FLOAT, "FLOAT"},
-    {CHAR, "CHAR"},
-    {STRING, "STRING"},
-    {LPAREN, "("},
-    {LBRACK, "["},
-    {LBRACE, "{"},
-    {RPAREN, ")"},
-    {RBRACK, "]"},
-    {RBRACE, "}"},
-    {COMMA, ","},
-    {PERIOD, "."},
-    {SEMICOLON, ";"},
-    {COLON, ":"},
-    {ADD, "+"},
-    {SUB, "-"},
-    {MUL, "*"},
-    {DIV, "/"},
-    {MOD, "%"},
-    {POS, "+5"},
-    {NEG, "-5"},
-    {EQL, "=="},
-    {LT, "<"},
-    {GT, ">"},
-    {ASSIGN, "="},
-    {NOT, "!"},
-    {NEQ, "!="},
-    {LEQ, "<="},
-    {GEQ, ">="},
-    {AND, "&"},
-    {OR, "|"},
-    {XOR, "^"},
-    {CONCAT, "concat"},
-    {BREAK, "break"},
-    {CASE, "case"},
-    {CONTINUE, "continue"},
-    {DEF, "def"},
-    {DEFAULT, "default"},
-    {ELSE, "else"},
-    {FOR, "for"},
-    {IF, "if"},
-    {IMPORT, "import"},
-    {LET, "let"},
-    {MAP, "map"},
-    {PACKAGE, "package"},
-    {THEN, "then"},
-    {END, "eof"}
+  /* Basic type literals. */
+  {IDENT, "IDENT"},
+  {INT, "INT"},
+  {FLOAT, "FLOAT"},
+  {CHAR, "CHAR"},
+  {STRING, "STRING"},
+  {NUMBER, "NUMBER"},
+
+  /* Single-character tokens. */
+  {LPAREN, "LPAREN"},
+  {LBRACK, "LBRACK"},
+  {LBRACE, "LBRACE"},
+  {RPAREN, "RPAREN"},
+  {RBRACK, "RBRACK"},
+  {RBRACE, "RBRACE"},
+  {COMMA, "COMMA"},
+  {PERIOD, "PERIOD"},
+  {SEMICOLON, "SEMICOLON"},
+  {COLON, "COLON"},
+
+  /* Arithmetic operators. */
+  {ADD, "ADD"},
+  {SUB, "SUB"},
+  {MUL, "MUL"},
+  {DIV, "DIV"},
+  {MOD, "MOD"},
+  {POS, "POS"},
+  {NEG, "NEG"},
+
+  /* Logical comparisons */
+  {EQL, "EQL"},
+  {LT, "LT"},
+  {GT, "GT"},
+  {ASSIGN, "ASSIGN"},
+  {NOT, "NOT"},
+  {NEQ, "NEQ"},
+  {LEQ, "LEQ"},
+  {GEQ, "GEQ"},
+
+  /* Bitwise operators */
+  {AND, "AND"},
+  {OR, "OR"},
+  {XOR, "XOR"},
+
+  /* String concatenation */
+  {CONCAT, "CONCAT"},
+
+  /* Keywords */
+  {BREAK, "BREAK"},
+  {CASE, "CASE"},
+  {CONTINUE, "CONTINUE"},
+  {DEF, "DEF"},
+  {DEFAULT, "DEFAULT"},
+  {ELSE, "ELSE"},
+  {FOR, "FOR"},
+  {IF, "IF"},
+  {IMPORT, "IMPORT"},
+  {LET, "LET"},
+  {MAP, "MAP"},
+  {PACKAGE, "PACKAGE"},
+  {THEN, "THEN"},
+  {END, "EOF"}
 };
 
 class Token 
@@ -142,7 +156,7 @@ class Token
     const void* literal;
     const int line;
   
-  Token(const TokenType type, 
+  Token(const TokenType type,
 	const std::string lexeme, 
 	const void* literal, 
 	const int line);

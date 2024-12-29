@@ -10,7 +10,5 @@ Token::~Token() {}
 
 std::string Token::toString()
 {
-    return TOKENS.at(Token::type) + " " + Token::lexeme + " " ; //+ literal; 
+  return TOKENS.at(Token::type) + " " + Token::lexeme + " " ; //+ literal; 
 }
-
-
